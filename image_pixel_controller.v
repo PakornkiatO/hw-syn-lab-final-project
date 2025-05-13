@@ -1,4 +1,6 @@
 module image_pixel_controller (
+    input wire clk,
+    input wire reset,
     input wire [9:0] curr_x,
     input wire [9:0] curr_y,
     input wire video_on,
@@ -8,9 +10,16 @@ module image_pixel_controller (
     wire [11:0] rom_data;
     reg [16:0] rom_addr;
 
-    image_rom (
-        .rom_addr(rom_addr),
-        .rom_data(rom_data)
+    // image_rom (
+    //     .rom_addr(rom_addr),
+    //     .rom_data(rom_data)
+    // );
+
+    blk_mem_gen_0 (
+        .addra(rom_addr),
+        .clka(clk),
+        .douta(rom_data),
+        .rsta(reset)
     );
 
     always @(*) begin
