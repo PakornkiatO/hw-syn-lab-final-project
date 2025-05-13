@@ -8,7 +8,7 @@ module vga_test (
 
     wire clk_25MHz;
 
-    clk_25MHz (
+    clk_25MHz(
         .clk_in1(clk),
         .reset(reset),
         .clk_out1(clk_25MHz)
@@ -22,9 +22,8 @@ module vga_test (
         .hsync(hsync),
         .vsync(vsync),
         .video_on(video_on),
-        .p_tick(),
-        .x(),
-        .y()
+        .curr_x(),
+        .curr_y()
     );
 
     assign rgb = (video_on) ? 12'b111111111111 : 12'b0;

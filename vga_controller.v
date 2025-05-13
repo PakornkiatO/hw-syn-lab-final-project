@@ -4,9 +4,8 @@ module vga_controller(
     output wire hsync,
     output wire vsync,
     output wire video_on,
-    output wire p_tick,
-    output wire [9:0] x,
-    output wire [9:0] y
+    output wire [9:0] curr_x,
+    output wire [9:0] curr_y
 );
 
     parameter HD = 640;
@@ -46,7 +45,7 @@ module vga_controller(
 
     assign video_on = (h_count < HD && v_count < VD);
 
-    assign x = h_count;
-    assign y = v_count;
+    assign curr_x = h_count;
+    assign curr_y = v_count;
 
 endmodule
