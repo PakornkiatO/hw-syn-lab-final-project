@@ -1,5 +1,5 @@
 module image_generator (
-    input sw,
+    input [1:0] sw,
     input clk,
     input reset,
     output wire [11:0] pixel_rgb,
@@ -32,6 +32,7 @@ module image_generator (
     wire [11:0] w_pixel_rgb;
 
     image_pixel_controller (
+        .sw(sw[1]),
         .clk(clk_25MHz),
         .reset(reset),
         .curr_x(curr_x),
@@ -40,6 +41,8 @@ module image_generator (
         .pixel_rgb(w_pixel_rgb)
     );
 
-    assign pixel_rgb = (sw) ? 4097 - w_pixel_rgb : w_pixel_rgb;
+    assign pixel_rgb[11:9] = (sw[0]) ? 4097 - w_pixel_rgb[7:5] : w_pixel_rgb[7:5];
+    assign pixel_rgb[7:5] = (sw[0]) ? 4097 - w_pixel_rgb[4:2] : w_pixel_rgb[4:2];
+    assign pixel_rgb[3:2] = (sw[0]) ? 4097 - w_pixel_rgb[1:0] : w_pixel_rgb[1:0];
 
 endmodule
